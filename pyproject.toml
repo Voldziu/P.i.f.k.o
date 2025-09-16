@@ -1,0 +1,12 @@
+[project]
+name = "pifko"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.116.1",
+    "logging>=0.4.9.6",
+    "sqlmodel>=0.0.24",
+    "uvicorn>=0.35.0",
+]

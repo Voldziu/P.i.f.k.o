@@ -2,10 +2,11 @@ import os
 from sqlmodel import SQLModel, create_engine, Session
 from contextlib import contextmanager
 
+
 # Database URL from environment
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://pifko_user:pifko_password123@localhost:5432/brewery_orders",
+    "postgresql://pifko_user:pifko_password123@localhost:5432/brewery_storage",
 )
 
 # Create engine

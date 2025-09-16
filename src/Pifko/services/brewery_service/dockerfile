@@ -14,7 +14,7 @@ COPY src/ ./src/
 RUN uv sync --frozen --no-dev
 
 # Copy service-specific code
-COPY src/Pifko/services/brewery-service/ .
+COPY src/Pifko/services/brewery_service/ .
 
 # Service configuration
 ENV PORT=8002

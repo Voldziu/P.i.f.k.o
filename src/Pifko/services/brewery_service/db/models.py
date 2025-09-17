@@ -16,6 +16,8 @@ class Recipe(SQLModel, table=True):
     malts: List["RecipeMaltsAssociative"] = Relationship(back_populates="recipe")
     yeasts: List["RecipeYeastAssociative"] = Relationship(back_populates="recipe")
 
+
+
 class Beer(SQLModel, table=True):
     __tablename__ = "beer"
     id: Optional[int] = Field(default=None, primary_key=True)

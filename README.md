@@ -27,3 +27,11 @@ CLEANING:
 
 cd src/Pifko
 uv run clean_db.py
+
+
+
+mcp inspector:
+
+npx @modelcontextprotocol/inspector
+
+

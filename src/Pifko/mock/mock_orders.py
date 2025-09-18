@@ -9,6 +9,7 @@ from services.orders_service.db.models import (
     OrderInvoice,
     OrderInnerBeerAssociative,
     OrderStatus,
+    OrderStatusInner,
 )
 
 # At the top of mock-data.py and cleanse-data.py
@@ -49,46 +50,51 @@ def inject_mock_data():
             session.add(customer)
         session.flush()  # Get IDs without committing
 
-        # Create orders
+        # Create orders (using OrderStatusInner)
         orders = [
-            OrderInner(status=OrderStatus.CONFIRMED, quantity_sum=15),
-            OrderInner(status=OrderStatus.IN_PRODUCTION, quantity_sum=25),
-            OrderInner(status=OrderStatus.PENDING, quantity_sum=10),
-            OrderInner(status=OrderStatus.SHIPPED, quantity_sum=30),
-            OrderInner(status=OrderStatus.DELIVERED, quantity_sum=20),
+            OrderInner(status=OrderStatusInner.READY_FOR_FERMENTING, quantity_sum=15),
+            OrderInner(status=OrderStatusInner.FERMENTING, quantity_sum=25),
+            OrderInner(status=OrderStatusInner.READY_FOR_AGING, quantity_sum=10),
+            OrderInner(status=OrderStatusInner.AGING, quantity_sum=30),
+            OrderInner(status=OrderStatusInner.DONE, quantity_sum=20),
         ]
 
         for order in orders:
             session.add(order)
         session.flush()
 
-        # Create invoices
+        # Create invoices (using OrderStatus)
         invoices = [
             OrderInvoice(
                 order_date=date.today() - timedelta(days=5),
                 ship_date=date.today() - timedelta(days=2),
+                status=OrderStatus.CONFIRMED,
                 fk_customer=customers[0].id,
                 fk_order_inner=orders[0].id,
             ),
             OrderInvoice(
                 order_date=date.today() - timedelta(days=3),
+                status=OrderStatus.IN_PRODUCTION,
                 fk_customer=customers[1].id,
                 fk_order_inner=orders[1].id,
             ),
             OrderInvoice(
                 order_date=date.today() - timedelta(days=1),
+                status=OrderStatus.PENDING,
                 fk_customer=customers[2].id,
                 fk_order_inner=orders[2].id,
             ),
             OrderInvoice(
                 order_date=date.today() - timedelta(days=7),
                 ship_date=date.today() - timedelta(days=4),
+                status=OrderStatus.DONE,
                 fk_customer=customers[3].id,
                 fk_order_inner=orders[3].id,
             ),
             OrderInvoice(
                 order_date=date.today() - timedelta(days=10),
                 ship_date=date.today() - timedelta(days=8),
+                status=OrderStatus.CONFIRMED,
                 fk_customer=customers[4].id,
                 fk_order_inner=orders[4].id,
             ),
